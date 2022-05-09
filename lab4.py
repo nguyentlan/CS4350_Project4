@@ -22,6 +22,7 @@ try:
     # TripStopInfo ( TripNumber, StopNumber, SequenceNumber, DrivingTime)
 
     # SQL Command to Create Tables
+    # Need to check for what are the foreign keys 
     tripTable = """ CREATE TABLE IF NOT EXISTS Trip(TripNumber TEXT, StartLocationName TEXT, DestinationName TEXT) """
     
     tripOfferingTable = """ CREATE TABLE IF NOT EXISTS TripOffering(TripNumber TEXT PRIMARY KEY, Date TEXT PRIMARY KEY, 
@@ -41,7 +42,7 @@ try:
                        DrivingTime TEXT)"""
     
     # Creating the tables
-    cursor.execute(busTable)
+    # cursor.execute(busTable)
 
     connection.commit()
     #connection.close()
