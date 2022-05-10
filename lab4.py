@@ -11,16 +11,6 @@ try:
     # Enables SQLite commands
     cursor = connection.cursor()
 
-    # TripOffering ( TripNumber, Date, ScheduledStartTime, SecheduledArrivalTime,                                                                                                      
-    # DriverName, BusID)
-    # Bus ( BusID, Model,Year)
-    # Driver( DriverName,  DriverTelephoneNumber)
-    # Stop (StopNumber, StopAddress)
-    # ActualTripStopInfo (TripNumber, Date, ScheduledStartTime, StopNumber, 
-    # SecheduledArrivalTime, ActualStartTime, ActualArrivalTime, NumberOfPassengerIn, 
-    # NumberOf PassengerOut)
-    # TripStopInfo ( TripNumber, StopNumber, SequenceNumber, DrivingTime)
-
     tripTable = """ CREATE TABLE IF NOT EXISTS Trip(TripNumber TEXT PRIMARY KEY, StartLocationName TEXT, DestinationName TEXT) """
     
     tripOfferingTable = """ CREATE TABLE IF NOT EXISTS TripOffering(TripNumber TEXT, Date TEXT, 
@@ -64,30 +54,71 @@ try:
     #connection.close()
 
     # Question 1
-    StartLocationName = input('Please enter a Start Location Name: ')
-    DestinationName = input('Please enter a Destination Name: ')
-    Date = input('Please enter a Date:')
-    for row in cursor.execute('''   SELECT 
-                                    t.StartLocationName, t.DestinationName, f.Date, f.ScheduledStartTime, f.ScheduledArrivalTime, f.DriverName, f.BusID 
-                                    FROM 
-                                    Trip t, TripOffering f 
-                                    WHERE 
-                                    t.TripNumber = f.TripNumber AND t.StartLocationName = "%s" AND t.DestinationName = "%s" AND f.Date = "%s"
-                              ''' % (StartLocationName, DestinationName, Date)):
-        print(row)
+    # StartLocationName = input('Please enter a Start Location Name: ')
+    # DestinationName = input('Please enter a Destination Name: ')
+    # Date = input('Please enter a Date:')
+    # for row in cursor.execute('''   SELECT 
+    #                                 t.StartLocationName, t.DestinationName, f.Date, f.ScheduledStartTime, f.ScheduledArrivalTime, f.DriverName, f.BusID 
+    #                                 FROM 
+    #                                 Trip t, TripOffering f 
+    #                                 WHERE 
+    #                                 t.TripNumber = f.TripNumber AND t.StartLocationName = "%s" AND t.DestinationName = "%s" AND f.Date = "%s"
+    #                           ''' % (StartLocationName, DestinationName, Date)):
+    #     print(row)
         
     # # Question 2
     
     # # Question 3 
-    # for row in cursor.execute(''''''):
+    # Trip = input('Enter a trip: ')
+    # for row in cursor.execute('''   SELECT
+    #                                 t.StopNumber
+    #                                 FROM
+    #                                 TripStopInfo t
+    #                                 WHERE
+    #                                 t.TripNumber = "%s"
+    #                           ''' % (Trip)):
     #     print(row)
     
+    # Done
     # Question 4
     # driverName = input("Please enter driver name:")
     # date = input("Please enter the date the driver is supposed to drive:")
     # for row in cursor.execute('''SELECT * FROM TripOffering WHERE DriverName = "%s" AND Date = "%s" ''' % (driverName, date)):
     #     print(row)
+
+    # Done 
+    # # Question 5
+    # driverName = input("Please enter the driver name you would like to add:")
+    # driverTelephone = input("Enter the phone number:")
+    # for row in cursor.execute('''INSERT INTO Driver(DriverName, DriverTelephoneNumber) VALUES("%s", "%s")''' % (driverName, driverTelephone)):
+    #     print(row)
     
-    # Question 5
+    # Question 6
+    # busID = input("Please enter the new BusID:")
+    # busPlate = input("Please enter the bus plate:")
+    # busYear = input("Please enter the year:")
+    # busMake = input("Please enter the make:")
+    # cursor.execute('''INSERT INTO Bus(BusID, Plate, Year, Make) VALUES("%s", "%s", "%s", "%s")''' % (busID, busPlate, busYear, busMake))
+
+    # for row in cursor.execute('''SELECT * FROM Bus'''):
+    #     print(row)
+
+    # Question 7
+    BusID = input('Enter a BusID to delete: ')
+    print('Here is your old table: ')
+    for row in cursor.execute(''' SELECT *
+                                  FROM Bus
+    '''):
+        print(row)
+    cursor.execute(''' DELETE FROM
+                                  Bus
+                                  WHERE
+                                  BusID = "%s"
+    ''' % (BusID))
+    print('BusID has been deleted, here is your new Bus Table: ')
+    for row in cursor.execute(''' SELECT *
+                                  FROM Bus
+    '''):
+        print(row)
 except Error as e: 
     print(e)
