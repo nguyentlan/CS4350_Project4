@@ -26,7 +26,7 @@ try:
     stopTable = """ CREATE TABLE IF NOT EXISTS Stop(StopNumber TEXT PRIMARY KEY, StopAddress TEXT)"""
     
     actualTripStopInfoTable = """ CREATE TABLE IF NOT EXISTS ActualTripStopInfo(TripNumber TEXT, Date TEXT, ScheduledStartTime
-                                  TEXT, StopNumber TEXT, SecheduledArrivalTime TEXT, ActualStartTime TEXT, ActualArrivalTime TEXT, 
+                                  TEXT, StopNumber TEXT, ScheduledArrivalTime TEXT, ActualStartTime TEXT, ActualArrivalTime TEXT, 
                                   NumberOfPassengerIn TEXT, NumberOfPassengerOut TEXT,
                                   PRIMARY KEY(StopNumber, Date, ScheduledStartTime, TripNumber),
                                   FOREIGN KEY(StopNumber) REFERENCES Stop(StopNumber), FOREIGN KEY(Date, ScheduledStartTime, 
@@ -55,7 +55,7 @@ try:
 
     cursor.execute
 
-    menu = False
+    menu = True
 
     while menu is True:
 
@@ -255,7 +255,29 @@ try:
             '''):
                 print(row)
 
-        # if menuChoice == '8':
+        if menuChoice == '8':
+            print("Insert the actual data of a given trip offering specified by its key")
+            tripNumber = input("Please specify the Trip Number: ")
+            dateNumber = input("Please input the Trip's Date: ")
+            scheduledStartTime = input("Please input the Trip's Starting Time: ")
+            stopNumber = input("Please input the Stop Number: ")
+            scheduledArrivalTime = input("Please input the Trip's Arrival Time: ")
+            actualStartTime = input("Please input the Trip's Actual Start Time: ")
+            actualArrivalTime = input("Please input the Trip's Actual Arrival Time: ")
+            passengerIn = input("Please input the Trip's Passenger In: ")
+            passengerOut = input("Please input the Trip's Passenger Out: ")
+            print("Here is the old version of the table")
+            for row in cursor.execute(''' SELECT * FROM ActualTripStopInfo'''):
+                print(row)
+            cursor.execute('''INSERT INTO ActualTripStopInfo(TripNumber, Date, ScheduledStartTime, StopNumber,
+                                ScheduledArrivalTime, ActualStartTime, ActualArrivalTime, NumberOfPassengerIn, NumberOfPassengerOut) 
+                                VALUES("%s","%s","%s","%s","%s", "%s", "%s", "%s", "%s")'''
+                                % (tripNumber, dateNumber, scheduledStartTime, stopNumber, scheduledArrivalTime, actualStartTime,
+                                actualArrivalTime, passengerIn, passengerOut))
+            print("Here is the updated version of the table")
+            for row in cursor.execute(''' SELECT * FROM ActualTripStopInfo'''):
+                print(row)
+
 
         if menuChoice == '9':
             menu = False
