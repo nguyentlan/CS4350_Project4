@@ -71,7 +71,7 @@ try:
                 <9>  Quit \n""")
 
         if menuChoice == '1':
-            print("Display the schedule of all trips given dt")
+            print("Display the schedule of all trips given specified info")
             StartLocationName = input('Please enter a Start Location Name: ')
             DestinationName = input('Please enter a Destination Name: ')
             Date = input('Please enter a Date:')
