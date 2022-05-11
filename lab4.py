@@ -112,12 +112,6 @@ try:
                     for row in cursor.execute(''' SELECT * FROM TripOffering'''):
                         print(row)
 
-                    userChoice = input("Would you like to continue with Question 2? (Y/N)")
-                    if userChoice == "Y":
-                        question2 = True
-                    if userChoice == "N":
-                        question2 = False
-
                 if question2Choice == '2':
                     tripNumber = input("Please specify the Trip Number: ")
                     dateNumber = input("Please input the Trip's Date: ")
@@ -137,12 +131,6 @@ try:
                     print("Here is the updated version of the table: ")
                     for row in cursor.execute(''' SELECT * FROM TripOffering'''):
                         print(row)
-                    
-                    userChoice = input("Would you like to continue with Question 2? (Y/N)")
-                    if userChoice == "Y":
-                        question2 = True
-                    if userChoice == "N":
-                        question2 = False
 
                 if question2Choice == '3':
                     tripNumber = input('Please specify the Trip Number: ')
